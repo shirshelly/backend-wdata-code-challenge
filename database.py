@@ -20,7 +20,7 @@ def ingest_data():
     connection = sqlite3.connect(db_file)
     data_folder = "./data"
     for data_file in os.listdir(data_folder):
-        df = pd.read_csv(data_folder + '\\' + data_file)
+        df = pd.read_csv(data_folder + '/' + data_file)
         if "Precipitation Rate in/hr" in df:
             convert_inch_to_mm(df)
         if "Temperature Fahrenheit" in df:
