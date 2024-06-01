@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from database import ingest_data, query
 import json
 
@@ -13,6 +13,17 @@ def check_condition(temperature, precipitation, condition):
     if condition == "rainyAndCold" and float(temperature) < 10 and float(precipitation) > 0.5:
         return True
     return False
+
+
+# Error handling
+@app.errorhandler(404)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return jsonify(error="An unexpected error occurred. Please try again later."), 500
 
 
 @app.route('/weather/insight')
@@ -30,13 +41,12 @@ def get_data():
             precipitation = record[5]
             condition_met = check_condition(temperature, precipitation, condition)
             results.append({"forecastTime": forcast_time, "conditionMet": condition_met})
-
         return json.dumps(results, indent=2), 200
-    return 'error', 404
+    return jsonify(error="Usage: https://backend-wdata-code-challenge-shirsh.onrender.com/weather/insight?condition={"
+                         "condition}&lat={lat}&lon={lon}"), 400
 
 
 if __name__ == '__main__':
     ingest_data()
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-
