@@ -1,4 +1,5 @@
 import os
+import re
 
 from flask import Flask, request, jsonify
 from database import ingest_data, query
@@ -13,6 +14,18 @@ def check_condition(temperature, precipitation, condition):
     if condition == "rainyAndCold" and float(temperature) < 10 and float(precipitation) > 0.5:
         return True
     return False
+
+
+# validate that temperature, precipitation are numbers and condition is 'veryHot' or 'rainyAndCold'. return o if
+# input is valid, 1 otherwise
+def validate_input(lon, lat, condition):
+    if condition != "veryHot" and condition != "rainyAndCold":
+        return 1
+    if not bool(re.match(r'^[-+]?[0-9]*\.?[0-9]+$', lon)):
+        return 1
+    if not bool(re.match(r'^[-+]?[0-9]*\.?[0-9]+$', lat)):
+        return 1
+    return 0
 
 
 # Error handling
@@ -33,6 +46,11 @@ def get_data():
     condition = request.args.get("condition")
 
     if lon and lat and condition:
+        if validate_input(lon, lat, condition):
+            return jsonify(
+                error="temperature should be a number, precipitation should be a number, condition should be "
+                      "'veryHot' or 'rainyAndCold'"), 400
+
         records = query(lon, lat)
         results = []
         for record in records:
