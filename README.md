@@ -88,4 +88,6 @@ The service will return either `true` or `false` for every timestamp, for two pr
    - Write unit tests and integration tests to ensure code reliability and correctness.
 6. Real World Data:
    - Use a database that is being updated regularly with real world data.
+7. Security:
+   - Implement security strategies to prevent SQL injections, DoS and DDoS attacks.
    
