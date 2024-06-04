@@ -2,7 +2,7 @@ import os
 import re
 
 from flask import Flask, request, jsonify
-from database import ingest_data, query
+from database import query
 import json
 
 app = Flask(__name__)
@@ -65,6 +65,5 @@ def get_data():
 
 
 if __name__ == '__main__':
-    ingest_data()
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
