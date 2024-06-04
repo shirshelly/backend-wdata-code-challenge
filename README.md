@@ -72,6 +72,7 @@ The service will return either `true` or `false` for every timestamp, for two pr
 - The CSV file is small to medium in size, suitable for ingestion into a SQLite database.
 - The data types of CSV columns are consistent and predictable.
 - The Data ingestion will run only once.
+- The Temperature in the CSV file will be in Celsius/Fahrenheit, and the Precipitation Rate will be in mm/in only.
 
 ## Missing Features for Production
 1. Authentication and Authorization:
