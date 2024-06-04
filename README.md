@@ -32,6 +32,7 @@ The service will return either `true` or `false` for every timestamp, for two pr
 
 - **Query Parameters**: lat, lon, condition
     - `condition` can be either `veryHot` or `rainyAndCold`
+    - **Note that the URL is case sensitive!**
  
 - **Example Query**: `https://backend-wdata-code-challenge-shirsh.onrender.com/weather/insight?lon=51.5&lat=24.5&condition=veryHot`
   
