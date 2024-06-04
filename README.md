@@ -85,5 +85,5 @@ The service will return either `true` or `false` for every timestamp, for two pr
 5. Testing:
    - Write unit tests and integration tests to ensure code reliability and correctness.
 6. Real World Data:
-   - Using a database that is being updated regularly with real world data.
+   - Use a database that is being updated regularly with real world data.
    
